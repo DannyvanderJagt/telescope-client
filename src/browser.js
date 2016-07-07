@@ -1,6 +1,6 @@
 (function(undefined){
-  
-  @include 'client.js'
+
+  @include 'client.js';
 
   window.Telescope = Telescope;
 

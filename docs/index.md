@@ -1,35 +1,24 @@
-# Telescope Service
+# Telescope Client
 
 ```js
-import Telescope, {
-	Device,
-	Process,
-	Expire,
-} from 'thesuitcase-telescope';
+import Telescope from 'thesuitcase-telescope-client';
 
-Telescope.connect({
-	device: new Device('macbook'),
-	process: new Process(),
-	key: '9sd8s9',
+Telescope.connect(<secretkey>);
+
+Telescope.on('connect', () => {
+	console.log('Let\'s start using the database');
+	
+	let notifications = 
+		Telescope
+			.db('yourapp')
+			.table('notifications')
+			.fetch(
+				notifications => console.log(notifications),
+				error => console.log(`Error: ${error}`)
+			)
+
 });
 
-// Table. (array)
-let {data as notifications, storage} = Telescope.db('telescope').table('notifications').liveStorage();
-
-storage.onDelete .onUpdate
-storage.store() // + normal table functionality.
-store.get('...').delete()
-
-
-Telescope.plugin({
-	
-	// Send notifications.
-	this.notification.create({
-		title: 'Hello',
-		description: 'We love you!',
-		exprire: Expire.days(1),
-		phone: true, // Send only to phone.
-		macbook: false,
-	})
-	
+Telescope.on('disconnect', () => {
+	console.log('We disconnected from the server');
 });

@@ -2,7 +2,13 @@
 const Ws = require('ws');
 var WebSocket = Ws;
 
-@include 'client.js'
+(function(undefined){
+  
+  @include 'client.js'
+
+  window.Telescope = Telescope;
+
+}())
 
 var instance = new Telescope();
 export default instance;
