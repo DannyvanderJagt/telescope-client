@@ -1,5 +1,5 @@
 {
-  "name": "telescope-service",
+  "name": "thesuitcase-telescope-client",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
