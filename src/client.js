@@ -52,9 +52,9 @@ Telescope.prototype.emit = function(event, data){
     return this;
   }
 
-  var i = 0, length = this.events.length; 
+  var i = 0, length = this.events[event].length; 
   for(i; i < length; i++){
-    this.events[i].apply(null, data);
+    this.events[event][i].apply(null, data);
   }
   return this;
 }
@@ -245,7 +245,7 @@ function Table(telescope, db, name){
 }
 
 Table.prototype.query = function(){
-  if(typeof name !== 'string'){
+  if(typeof this.name !== 'string'){
     this.telescope.emitAndWarn('error', 'The name of a table must be a string.')
     return;
   }
@@ -474,6 +474,40 @@ Query.prototype.update = function(success, error){
 
   return this;
 }
+
+/*
+  Store
+ */
+function Storage(telescope, query, options){
+  this.telescope = telescope;
+  this.query = query;
+  this.options = options || {};
+
+  this._setup();
+
+  return this;
+}
+
+Storage.prototype._setup = function(){
+  this._query = this.query.changes(
+    this.onSuccess.bind(this),
+    this.options.onError || this.onError.bind(this)
+  );
+}
+
+Storage.prototype.onSuccess = function(data){
+  console.log('Storage')
+}
+
+
+
+
+
+
+
+/**
+  Uid - See package: thesuitcase-uid.
+ */
 function Uid(length){
   if(!length){ length = 1; }
   if(typeof length !== 'number'){ length = 1; }

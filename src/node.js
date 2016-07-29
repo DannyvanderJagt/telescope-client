@@ -6,5 +6,5 @@ var WebSocket = Ws;
 
 var instance = new Telescope();
 
-export default instance;
+// export default instance;
 module.exports = instance;

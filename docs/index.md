@@ -16,9 +16,26 @@ Telescope.on('connect', () => {
 				notifications => console.log(notifications),
 				error => console.log(`Error: ${error}`)
 			)
-
 });
 
 Telescope.on('disconnect', () => {
 	console.log('We disconnected from the server');
 });
+
+
+// Create a store
+let ArrayStore = {};
+
+Telescope
+	.db('yourapp')
+	.table('notifications')
+	.storage(ArrayStore, {
+		key: <fieldName>,
+	
+		onAdd(added){},
+		onDelete(){},
+		onChange(){}
+	});
+
+
+```
